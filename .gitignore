@@ -1,0 +1,51 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+
+# EMPLEADOS FRONT
+
+# dependencies 
+/empleados_front/node_modules
+/empleados_front/.pnp
+/empleados_front/.pnp.js
+
+# testing
+/empleados_front/coverage
+
+# production
+/empleados_front/build
+
+# misc
+/empleados_front/.DS_Store
+/empleados_front/.env.local
+/empleados_front/.env.development.local
+/empleados_front/.env.test.local
+/empleados_front/.env.production.local
+
+/empleados_front/npm-debug.log*
+/empleados_front/yarn-debug.log*
+/empleados_front/yarn-error.log*
+
+
+# PROYECTO_BACK
+
+# dependencies 
+/proyecto_back/node_modules
+/proyecto_back/.pnp
+/proyecto_back/.pnp.js
+
+# testing
+/proyecto_back/coverage
+
+# production
+/proyecto_back/build
+
+# misc
+/proyecto_back/.DS_Store
+/proyecto_back/.env.local
+/proyecto_back/.env.development.local
+/proyecto_back/.env.test.local
+/proyecto_back/.env.production.local
+
+/proyecto_back/npm-debug.log*
+/proyecto_back/yarn-debug.log*
+/proyecto_back/yarn-error.log*
