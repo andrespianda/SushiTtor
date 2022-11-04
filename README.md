@@ -1,4 +1,4 @@
-# Proyecto UTP - SUSHI - TOR
+# Proyecto UTP - SUSHI - TTOR
 
 
 ![Stack](https://github.com/andrespianda/SushiTtor/blob/master/MERN-STACK.png)
