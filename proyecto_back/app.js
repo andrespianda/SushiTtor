@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var database =  require('./config/database')
 var auth = require('./auth/main_auth')
+var cors = require('cors')
 
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
@@ -21,6 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors())
 
 database.mongoConnect()
 

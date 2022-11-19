@@ -1,9 +1,16 @@
 import React, { Component } from "react";
+//import React from "react";
+import axios from 'axios'
 import logoLogin from '../assets/Colosal.png'
 import './login.css'
+import app from '../app.json'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faFacebook,faTwitter,  faLinkedin} from '@fortawesome/free-brands-svg-icons'
+//import {APIHOST as host} from '../app.json'
 
+const {host}= app
 
-export default class Login extends Component {
+export class Login extends Component {
   constructor(props){
   super(props)
   this.state={
@@ -11,23 +18,42 @@ export default class Login extends Component {
     pass:''
   }
 }
- prueba = (e)=>{
 
-  if (!this.state.usuario && !this.state.pass ) {
-    alert('Por favor diligenciar login y contraseña!!')    
-  }
 
-  if (!this.state.usuario && this.state.pass ) {
-    alert('Por favor diligenciar login')    
-  }
-  if (this.state.usuario && !this.state.pass ) {
-    alert('Por favor diligenciar la Contraseña')    
-  }
-  if (this.state.usuario && this.state.pass ) {
+iniciarSesion = (e)=>{
+  e.preventDefault();
+
+  axios.post('http://localhost:4000/usuarios/login',{
+    usuario:this.state.usuario,
+    pass: this.state.pass
+  })
+  .then((response) =>{
+    console.log(response);
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+  
+
+}
+//  prueba = (e)=>{
+
+//   if (!this.state.usuario && !this.state.pass ) {
+//     alert('Por favor diligenciar login y contraseña!!')    
+//   }
+
+//   if (!this.state.usuario && this.state.pass ) {
+//     alert('Por favor diligenciar login')    
+//   }
+//   if (this.state.usuario && !this.state.pass ) {
+//     alert('Por favor diligenciar la Contraseña')    
+//   }
+//   if (this.state.usuario && this.state.pass ) {
     
-    alert(`Su Nombre de usuario es: ${this.state.usuario} y su Password es: ${this.state.pass}`)
-  }
-   }
+//     alert(`Su Nombre de usuario es: ${this.state.usuario} y su Password es: ${this.state.pass}`)
+//   }
+//    }
+
   render() {
    
     
@@ -87,15 +113,18 @@ export default class Login extends Component {
           <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
             <p className="lead fw-normal mb-0 me-3">Ingresar con</p>
             <button type="button" className="btn btn-primary btn-floating mx-1">
-              <i className="fab fa-facebook-f"/>
+              {/* <i className="fab fa-facebook-f"/> */}
+              <FontAwesomeIcon icon={faFacebook} />
             </button>
 
             <button type="button" className="btn btn-primary btn-floating mx-1">
-              <i className="fab fa-twitter"/>
+              {/* <i className="fab fa-twitter"/> */}
+              <FontAwesomeIcon icon={faTwitter} />
             </button>
 
             <button type="button" className="btn btn-primary btn-floating mx-1">
-              <i className="fab fa-linkedin-in"/>
+              {/* <i className="fab fa-linkedin-in"/> */}
+              <i className="fab"><FontAwesomeIcon icon={faLinkedin} /></i> 
             </button>
           </div>
 
@@ -105,7 +134,7 @@ export default class Login extends Component {
 
           {/* <!-- Email input --> */}
           <div className="form-outline mb-4">
-            <input type="email" id="form3Example3" className="form-control form-control-lg"
+            <input type="text" id="form3Example3" className="form-control form-control-lg"
               placeholder="Ingrese un correo valido" 
               onChange={(e)=> this.setState({usuario: e.target.value})}/>
             <label className="form-label" htmlFor="form3Example3">Usuario</label>
@@ -132,9 +161,9 @@ export default class Login extends Component {
 
           <div className="text-center text-lg-start mt-4 pt-2">
             <button  className="btn btn-primary btn-lg pl-2 pr-2" 
-            onClick={this.prueba}>Ingresar</button>
-            <p className="small fw-bold mt-2 pt-1 mb-0">No tiene una cuenta? <a href="#!" className="link-danger">Registrarse</a></p>
+            onClick={this.iniciarSesion}>Ingresar</button>
           </div>
+            <p className="small fw-bold mt-2 pt-1 mb-0">No tiene una cuenta? <a href="#!" className="link-danger">Registrarse</a></p>
 
         </form>
       </div>
@@ -170,3 +199,6 @@ export default class Login extends Component {
     );
   }
 }
+
+
+export default Login;
