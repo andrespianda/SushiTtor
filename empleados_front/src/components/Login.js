@@ -3,17 +3,23 @@ import React, { Component } from "react";
 import axios from 'axios'
 import logoLogin from '../assets/Colosal.png'
 import './login.css'
-import app from '../app.json'
+//import app from '../app.json'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFacebook,faTwitter,  faLinkedin} from '@fortawesome/free-brands-svg-icons'
+import Cookies from 'universal-cookie'
+import { calculaExtracionSesion } from "./helper/helper";
+import Loading  from './common/loading/Loading'
+//import{isNull} from 'util'
 //import {APIHOST as host} from '../app.json'
 
-const {host}= app
+//const {host}= app
+const cookies = new Cookies()
 
 export class Login extends Component {
   constructor(props){
   super(props)
   this.state={
+    loading: false,
     usuario:'',
     pass:''
   }
@@ -23,15 +29,30 @@ export class Login extends Component {
 iniciarSesion = (e)=>{
   e.preventDefault();
 
+  console.log(this.state.usuario, this.state.pass)
+  this.setState({loading: true})
+
   axios.post('http://localhost:4000/usuarios/login',{
     usuario:this.state.usuario,
     pass: this.state.pass
   })
   .then((response) =>{
-    console.log(response);
+    if (response.data.token == null) {
+      alert("Usuario o contraseña no existen")
+    }else{
+      cookies.set('_s', response.data.token,{
+        path:'/',
+        expires: calculaExtracionSesion()
+      })
+
+      this.props.history.push('/home')
+    }
+    this.setState({loading:false})
+    //console.log(response);
   })
   .catch((err)=>{
     console.log(err)
+    this.setState({loading:false})
   })
   
 
@@ -59,6 +80,8 @@ iniciarSesion = (e)=>{
     
     return (
       <div className="container ">
+        <Loading show={this.state.loading}/>
+
         {/* <form>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
